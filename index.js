@@ -1,13 +1,24 @@
-const prompt = require("prompt-sync")();
-const min = prompt("What is the min weight: ");
-const max = prompt("What is the max weight: ");
-const results = calc5sets(parseInt(min), parseInt(max));
+const readline = require('readline');
 
-// Output results to user
-console.log("\nYour sets: (weights are per side)");
-for (const result of results) {
-	console.log(`${result} - ${plateCount(result)}`);
-}
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
+
+rl.question('What is the min weight: ', (firstNumber) => {
+  rl.question('What is the max weight: ', (secondNumber) => {
+    const min = parseInt(firstNumber);
+    const max = parseInt(secondNumber);
+		const results = calc5sets(min, max);
+
+		// Output results to user
+		console.log("\nYour sets: (weights are per side)");
+		for (const result of results) {
+			console.log(`${result} - ${plateCount(result)}`);
+		}
+    rl.close();
+  });
+});
 
 // Functions
 function calc5sets(first, last) {
