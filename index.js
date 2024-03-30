@@ -12,7 +12,7 @@ rl.question('What is the min weight: ', (firstNumber) => {
 		const results = calc5sets(min, max);
 
 		// Output results to user
-		console.log("\nYour sets: (weights are per side)");
+		console.log("\nYour sets: (weights are lbs per side)");
 		for (const result of results) {
 			console.log(`${result} - ${plateCount(result)}`);
 		}
@@ -53,7 +53,7 @@ function plateCount(liftAmount) {
 		const weightOnBothSides = weight * 2;
 		const numPlatesPerSide = Math.floor(liftBalance / weightOnBothSides);
 		liftBalance = liftBalance - weightOnBothSides * numPlatesPerSide;
-		if (numPlatesPerSide > 0) message += `${numPlatesPerSide}-${weight}lb `;
+		if (numPlatesPerSide > 0) message += `${numPlatesPerSide}x${weight} `;
 	}
 	return message;
 }
