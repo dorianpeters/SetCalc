@@ -1,3 +1,5 @@
+import time
+
 def calc5sets(first, last):
   resultArr = []
   sets = 5
@@ -28,7 +30,7 @@ def plateCount(liftAmount):
     numPlatesPerSide = int(liftBalance // weightOnBothSides)
     liftBalance = liftBalance - weightOnBothSides * numPlatesPerSide
     if numPlatesPerSide > 0:
-      message += f"{numPlatesPerSide}-{weight}lb "
+      message += f"{numPlatesPerSide}x{weight} "
   
   return message
 
@@ -37,8 +39,10 @@ def roundTo(x, base=5):
 
 min = int(input("What is the min weight: "))
 max = int(input("What is the max weight: "))
+start = time.perf_counter_ns()
 results = calc5sets(min, max)
-print("Your sets: (weights are per side)")
+print("Your sets: (weights are lbs per side)")
 for result in results:
   print(f"{result} - {plateCount(result)}")
-
+duration = time.perf_counter_ns() - start
+print(f"calcTime {duration} ns.")
