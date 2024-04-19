@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <title>Set Calculator</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        background-color: #fff;
+        color: #333;
+        font: 1em / 1.4 Helvetica Neue, Helvetica, Arial, sans-serif;
+        padding: 1em;
+        margin: 0;
+      }
+      button,
+      input,
+      select,
+      textarea {
+        font-family: inherit;
+        font-size: 100%;
+        width: 50%;
+        padding: 0;
+        margin: 0;
+      }
+      ul,
+      li {
+        list-style: none;
+        padding: 10px 0;
+      }
+
+      input:invalid {
+        box-shadow: 0 0 5px 1px red;
+      }
+
+      .form-container {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        justify-content: center;
+        align-items: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="form-container">
+      <form>
+        <h2>Enter weight:</h2>
+        <ul>
+          <li>
+            <label for="min">Min</label><br />
+            <input type="number" id="min" name="min" required />
+          </li>
+          <li>
+            <label for="max">Max</label><br />
+            <input type="number" id="max" name="max" required />
+          </li>
+          <li>
+            <button id="submitBtn" type="button">Submit</button>
+          </li>
+        </ul>
+      </form>
+      <p id="resultArea"></p>
+    </div>
+    <script>
+      const resultsArea = document.getElementById("resultArea");
+      resultArea.setAttribute("style", "white-space: pre;");
+      const submitBtn = document.getElementById("submitBtn");
+
+      submitBtn.addEventListener("click", showResults);
+
+      // Functions
+      function showResults() {
+        event.preventDefault();
+        const min = parseInt(document.getElementById("min").value);
+        const max = parseInt(document.getElementById("max").value);
+        let set = 1;
+        const results = calc5sets(min, max);
+        resultsArea.textContent = "";
+        resultArea.textContent = "Your sets: (weights are lbs per side): \r\n";
+        for (const result of results) {
+          resultArea.textContent += `Set ${set} - ${result} - ${plateCount(
+            result
+          )}\r\n`;
+          set++;
+        }
+      }
+
+      function calc5sets(first, last) {
+        const resultArr = [];
+        const sets = 5;
+        const divisor = sets - 1;
+        const difference = last - first;
+        const increment = difference / divisor;
+        for (let current = first; current <= last; current += increment) {
+          const rounded = roundTo(current, 5);
+          resultArr.push(rounded);
+        }
+        return resultArr;
+      }
+
+      function plateCount(liftAmount) {
+        if (liftAmount < 45) {
+          return "no bar - too heavy.";
+        }
+        if (liftAmount < 50) {
+          return "bar only.";
+        }
+
+        // deal with bar
+        let message = "bar + ";
+        let liftBalance = liftAmount - 45;
+
+        // deal with weights
+        const weights = [45, 35, 25, 10, 5, 2.5];
+
+        for (const weight of weights) {
+          const weightOnBothSides = weight * 2;
+          const numPlatesPerSide = Math.floor(liftBalance / weightOnBothSides);
+          liftBalance = liftBalance - weightOnBothSides * numPlatesPerSide;
+          if (numPlatesPerSide > 0) message += `${numPlatesPerSide}x${weight} `;
+        }
+        return message;
+      }
+
+      function roundTo(number, roundto) {
+        return roundto * Math.round(number / roundto);
+      }
+    </script>
+  </body>
+</html>
