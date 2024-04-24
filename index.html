@@ -139,12 +139,13 @@
           return "bar only.";
         }
 
+        // deal with weights
+        const weights = [45, 35, 25, 10, 5, 2.5];
+        if (liftAmount >= 225) weights.pop();
+
         // deal with bar
         let message = "bar + ";
         let liftBalance = liftAmount - 45;
-
-        // deal with weights
-        const weights = [45, 35, 25, 10, 5, 2.5];
 
         for (const weight of weights) {
           const weightOnBothSides = weight * 2;
