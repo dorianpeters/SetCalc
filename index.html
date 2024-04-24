@@ -38,7 +38,7 @@
       .form-container {
         display: flex;
         flex-direction: column;
-        min-height: 100vh;
+        /* min-height: 100vh; */
         justify-content: center;
         align-items: center;
       }
@@ -57,11 +57,25 @@
         <ul>
           <li>
             <label for="min">Min</label><br />
-            <input type="number" id="min" name="min" required />
+            <input
+              type="number"
+              id="min"
+              name="min"
+              min="1"
+              max="2000"
+              required
+            />
           </li>
           <li>
             <label for="max">Max</label><br />
-            <input type="number" id="max" name="max" required />
+            <input
+              type="number"
+              id="max"
+              name="max"
+              min="1"
+              max="2000"
+              required
+            />
           </li>
           <li>
             <button id="submitBtn" type="button">Submit</button>
@@ -79,7 +93,6 @@
 
       // Functions
       function showResults() {
-        event.preventDefault();
         const min = parseInt(document.getElementById("min").value);
         const max = parseInt(document.getElementById("max").value);
         let set = 1;
