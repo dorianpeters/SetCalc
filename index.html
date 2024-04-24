@@ -78,6 +78,18 @@
             />
           </li>
           <li>
+            <label for="sets">Sets</label><br />
+            <input
+              type="number"
+              id="sets"
+              name="sets"
+              min="1"
+              max="9"
+              value="5"
+              required
+            />
+          </li>
+          <li>
             <button id="submitBtn" type="button">Submit</button>
           </li>
         </ul>
@@ -95,21 +107,21 @@
       function showResults() {
         const min = parseInt(document.getElementById("min").value);
         const max = parseInt(document.getElementById("max").value);
-        let set = 1;
-        const results = calc5sets(min, max);
+        const sets = parseInt(document.getElementById("sets").value);
+        let setCount = 1;
+        const results = calc5sets(min, max, sets);
         resultsArea.textContent = "";
         resultArea.textContent = "Your sets: (weights are lbs per side): \r\n";
         for (const result of results) {
-          resultArea.textContent += `Set ${set} - ${result} - ${plateCount(
+          resultArea.textContent += `Set ${setCount} - ${result} - ${plateCount(
             result
           )}\r\n`;
-          set++;
+          setCount++;
         }
       }
 
-      function calc5sets(first, last) {
+      function calc5sets(first, last, sets) {
         const resultArr = [];
-        const sets = 5;
         const divisor = sets - 1;
         const difference = last - first;
         const increment = difference / divisor;
