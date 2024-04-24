@@ -52,7 +52,7 @@
   </head>
   <body>
     <div class="form-container">
-      <form>
+      <form type="submit" onsubmit="showResults()">
         <h2>Enter weight:</h2>
         <ul>
           <li>
@@ -90,7 +90,7 @@
             />
           </li>
           <li>
-            <button id="submitBtn" type="button">Submit</button>
+            <button id="submitBtn" type="submit">Submit</button>
           </li>
         </ul>
       </form>
@@ -100,8 +100,6 @@
       const resultsArea = document.getElementById("resultArea");
       resultArea.setAttribute("style", "white-space: pre;");
       const submitBtn = document.getElementById("submitBtn");
-
-      submitBtn.addEventListener("click", showResults);
 
       // Functions
       function showResults() {
@@ -118,6 +116,7 @@
           )}\r\n`;
           setCount++;
         }
+        event.preventDefault();
       }
 
       function calc5sets(first, last, sets) {
