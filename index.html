@@ -33,12 +33,12 @@
 
       input:invalid {
         box-shadow: 0 0 5px 1px red;
+        -webkit-appearance: none; /* make box-shadow work on iOS */
       }
 
       .form-container {
         display: flex;
         flex-direction: column;
-        /* min-height: 100vh; */
         justify-content: center;
         align-items: center;
       }
@@ -46,7 +46,7 @@
         margin-bottom: 0;
       }
       button {
-        background-color: blue;
+        background-color: skyblue;
         border: none;
         border-radius: 8px;
         color: white;
